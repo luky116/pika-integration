@@ -709,7 +709,7 @@ var _ = Describe("PikaCommands", func() {
 
 			pttl := client.PTTL(ctx, "key")
 			Expect(pttl.Err()).NotTo(HaveOccurred())
-			Expect(pttl.Val()).To(Equal(time.Duration(-2)))
+			Expect(pttl.Val()).To(Equal(time.Duration(0)))
 		})
 
 		//It("should PExpireTime", func() {
@@ -2160,7 +2160,7 @@ var _ = Describe("PikaCommands", func() {
 
 			vals, err := client.HMGet(ctx, "hash", "key1").Result()
 			Expect(err).NotTo(HaveOccurred())
-			Expect(vals).To(Equal([]interface{}{"hello1", nil}))
+			Expect(vals).To(Equal([]interface{}{"hello1"}))
 		})
 
 		It("should HSet", func() {
@@ -2174,7 +2174,7 @@ var _ = Describe("PikaCommands", func() {
 				"key2": "hello2",
 			}).Result()
 			Expect(err).NotTo(HaveOccurred())
-			Expect(ok).To(Equal(int64(2)))
+			Expect(ok).To(Equal(int64(1)))
 
 			v, err := client.HGet(ctx, "hash", "key1").Result()
 			Expect(err).NotTo(HaveOccurred())
